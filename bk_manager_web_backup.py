@@ -3,7 +3,6 @@
 """
 BK Server Manager - Modern Web Interface
 Современный веб-интерфейс для управления серверами BK
-Версия для публикации
 """
 
 from flask import Flask, render_template_string, request, jsonify, send_file
@@ -48,7 +47,6 @@ logging.basicConfig(
 logger = logging.getLogger(__name__)
 
 app = Flask(__name__)
-app.secret_key = 'bk-manager-secret-key-2024'
 
 # Цвета для Excel
 FILL_GREEN = PatternFill(start_color="C6EFCE", end_color="C6EFCE", fill_type="solid")
@@ -62,13 +60,6 @@ RESULTS_STORE = {
     'ntp': [], 'web': [], 'cloud': [], 'version': [],
     'archive': [], 'users_list': [], 'users_check': [],
     'db': [], 'pos': [], 'ip': []
-}
-
-# Статус выполнения задач
-TASK_STATUS = {
-    'running': False,
-    'progress': 0,
-    'message': ''
 }
 
 # --- БАЗА ЭТАЛОНОВ ПРАВОК ---
