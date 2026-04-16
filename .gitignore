@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Логи и конфиги приложения
+bk_manager_excel.log
+user_templates.json
+
+# IDE и ОС
+.vscode/
+.idea/
+*.swp
+.DS_Store
