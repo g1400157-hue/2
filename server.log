@@ -1,0 +1,9 @@
+OpenBLAS WARNING - could not determine the L2 cache size on this system, assuming 256k
+============================================================
+🚀 BK Server Manager - Современный Веб-Интерфейс
+============================================================
+📱 Откройте в браузере: http://localhost:5000
+🛑 Для остановки нажмите Ctrl+C
+============================================================
+ * Serving Flask app 'bk_manager_web'
+ * Debug mode: off

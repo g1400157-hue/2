@@ -1,7 +1,1 @@
-```
-# Logs
-*.log
-
-# Environment
-.env.local
-```
+Nothing should be ignored based on the provided file changes. The only modified file is `bk_manager_web.py`, which is a source code file and should not be added to .gitignore.
