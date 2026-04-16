@@ -33,8 +33,7 @@ tasks = {}
 task_lock = threading.Lock()
 
 # --- HTML ШАБЛОН ---
-HTML_TEMPLATE = '''
-<!DOCTYPE html>
+HTML_TEMPLATE = '''<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -157,7 +156,7 @@ HTML_TEMPLATE = '''
             color: var(--text);
         }
 
-        textarea, input[type="text"], input[type="number"] {
+        textarea, input[type="text"], input[type="number"], select {
             width: 100%;
             padding: 0.75rem;
             border: 1px solid var(--border);
@@ -167,7 +166,7 @@ HTML_TEMPLATE = '''
             transition: border-color 0.2s;
         }
 
-        textarea:focus, input:focus {
+        textarea:focus, input:focus, select:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
@@ -326,16 +325,16 @@ HTML_TEMPLATE = '''
 
     <div class="container">
         <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('ntp')">🕐 NTP Серверы</button>
-            <button class="tab-btn" onclick="switchTab('web')">🌐 Web Интерфейс</button>
-            <button class="tab-btn" onclick="switchTab('cloud')">☁️ Cloud Функции</button>
-            <button class="tab-btn" onclick="switchTab('versions')">📋 Версии ПО</button>
-            <button class="tab-btn" onclick="switchTab('archive')">📦 Глубина Архива</button>
-            <button class="tab-btn" onclick="switchTab('users')">👥 Пользователи</button>
-            <button class="tab-btn" onclick="switchTab('rights')">✅ Права Доступа</button>
-            <button class="tab-btn" onclick="switchTab('db')">💾 Состояние БД</button>
-            <button class="tab-btn" onclick="switchTab('pos')">🏪 POS Терминалы</button>
-            <button class="tab-btn" onclick="switchTab('ip')">🌐 IP Адреса</button>
+            <button class="tab-btn active" onclick="switchTab('ntp')">NTP Серверы</button>
+            <button class="tab-btn" onclick="switchTab('web')">Web Интерфейс</button>
+            <button class="tab-btn" onclick="switchTab('cloud')">Cloud Функции</button>
+            <button class="tab-btn" onclick="switchTab('versions')">Версии ПО</button>
+            <button class="tab-btn" onclick="switchTab('archive')">Глубина Архива</button>
+            <button class="tab-btn" onclick="switchTab('users')">Пользователи</button>
+            <button class="tab-btn" onclick="switchTab('rights')">Права Доступа</button>
+            <button class="tab-btn" onclick="switchTab('db')">Состояние БД</button>
+            <button class="tab-btn" onclick="switchTab('pos')">POS Терминалы</button>
+            <button class="tab-btn" onclick="switchTab('ip')">IP Адреса</button>
         </div>
 
         <!-- Вкладка NTP -->
@@ -347,10 +346,10 @@ HTML_TEMPLATE = '''
             </div>
             <div class="actions">
                 <button class="btn btn-primary" onclick="runTask('ntp')">
-                    <span>▶ Запустить проверку</span>
+                    <span>Запустить проверку</span>
                 </button>
                 <button class="btn btn-success hidden" id="export-ntp" onclick="exportToExcel('ntp')">
-                    📥 Экспорт в Excel
+                    Экспорт в Excel
                 </button>
             </div>
             <div id="ntp-status" class="status-bar hidden">
@@ -370,7 +369,7 @@ HTML_TEMPLATE = '''
             </div>
             <div class="input-group">
                 <label for="web-action">Действие:</label>
-                <select id="web-action" style="width:100%; padding:0.75rem; border:1px solid var(--border); border-radius:0.5rem;">
+                <select id="web-action">
                     <option value="start">Включить Web</option>
                     <option value="stop">Выключить Web</option>
                     <option value="check">Проверить статус</option>
@@ -378,10 +377,10 @@ HTML_TEMPLATE = '''
             </div>
             <div class="actions">
                 <button class="btn btn-primary" onclick="runTask('web')">
-                    <span>▶ Выполнить</span>
+                    <span>Выполнить</span>
                 </button>
                 <button class="btn btn-success hidden" id="export-web" onclick="exportToExcel('web')">
-                    📥 Экспорт в Excel
+                    Экспорт в Excel
                 </button>
             </div>
             <div id="web-status" class="status-bar hidden">
@@ -401,7 +400,7 @@ HTML_TEMPLATE = '''
             </div>
             <div class="input-group">
                 <label for="cloud-action">Действие:</label>
-                <select id="cloud-action" style="width:100%; padding:0.75rem; border:1px solid var(--border); border-radius:0.5rem;">
+                <select id="cloud-action">
                     <option value="enable">Включить Cloud</option>
                     <option value="disable">Выключить Cloud</option>
                     <option value="check">Проверить статус</option>
@@ -409,10 +408,10 @@ HTML_TEMPLATE = '''
             </div>
             <div class="actions">
                 <button class="btn btn-primary" onclick="runTask('cloud')">
-                    <span>▶ Выполнить</span>
+                    <span>Выполнить</span>
                 </button>
                 <button class="btn btn-success hidden" id="export-cloud" onclick="exportToExcel('cloud')">
-                    📥 Экспорт в Excel
+                    Экспорт в Excel
                 </button>
             </div>
             <div id="cloud-status" class="status-bar hidden">
@@ -432,10 +431,10 @@ HTML_TEMPLATE = '''
             </div>
             <div class="actions">
                 <button class="btn btn-primary" onclick="runTask('versions')">
-                    <span>▶ Запустить проверку</span>
+                    <span>Запустить проверку</span>
                 </button>
                 <button class="btn btn-success hidden" id="export-versions" onclick="exportToExcel('versions')">
-                    📥 Экспорт в Excel
+                    Экспорт в Excel
                 </button>
             </div>
             <div id="versions-status" class="status-bar hidden">
@@ -455,10 +454,10 @@ HTML_TEMPLATE = '''
             </div>
             <div class="actions">
                 <button class="btn btn-primary" onclick="runTask('archive')">
-                    <span>▶ Запустить проверку</span>
+                    <span>Запустить проверку</span>
                 </button>
                 <button class="btn btn-success hidden" id="export-archive" onclick="exportToExcel('archive')">
-                    📥 Экспорт в Excel
+                    Экспорт в Excel
                 </button>
             </div>
             <div id="archive-status" class="status-bar hidden">
@@ -478,10 +477,10 @@ HTML_TEMPLATE = '''
             </div>
             <div class="actions">
                 <button class="btn btn-primary" onclick="runTask('users')">
-                    <span>▶ Получить список</span>
+                    <span>Получить список</span>
                 </button>
                 <button class="btn btn-success hidden" id="export-users" onclick="exportToExcel('users')">
-                    📥 Экспорт в Excel
+                    Экспорт в Excel
                 </button>
             </div>
             <div id="users-status" class="status-bar hidden">
@@ -505,10 +504,10 @@ HTML_TEMPLATE = '''
             </div>
             <div class="actions">
                 <button class="btn btn-primary" onclick="runTask('rights')">
-                    <span>▶ Проверить права</span>
+                    <span>Проверить права</span>
                 </button>
                 <button class="btn btn-success hidden" id="export-rights" onclick="exportToExcel('rights')">
-                    📥 Экспорт в Excel
+                    Экспорт в Excel
                 </button>
             </div>
             <div id="rights-status" class="status-bar hidden">
@@ -528,10 +527,10 @@ HTML_TEMPLATE = '''
             </div>
             <div class="actions">
                 <button class="btn btn-primary" onclick="runTask('db')">
-                    <span>▶ Проверить БД</span>
+                    <span>Проверить БД</span>
                 </button>
                 <button class="btn btn-success hidden" id="export-db" onclick="exportToExcel('db')">
-                    📥 Экспорт в Excel
+                    Экспорт в Excel
                 </button>
             </div>
             <div id="db-status" class="status-bar hidden">
@@ -551,10 +550,10 @@ HTML_TEMPLATE = '''
             </div>
             <div class="actions">
                 <button class="btn btn-primary" onclick="runTask('pos')">
-                    <span>▶ Проверить POS</span>
+                    <span>Проверить POS</span>
                 </button>
                 <button class="btn btn-success hidden" id="export-pos" onclick="exportToExcel('pos')">
-                    📥 Экспорт в Excel
+                    Экспорт в Excel
                 </button>
             </div>
             <div id="pos-status" class="status-bar hidden">
@@ -574,10 +573,10 @@ HTML_TEMPLATE = '''
             </div>
             <div class="actions">
                 <button class="btn btn-primary" onclick="runTask('ip')">
-                    <span>▶ Проверить IP</span>
+                    <span>Проверить IP</span>
                 </button>
                 <button class="btn btn-success hidden" id="export-ip" onclick="exportToExcel('ip')">
-                    📥 Экспорт в Excel
+                    Экспорт в Excel
                 </button>
             </div>
             <div id="ip-status" class="status-bar hidden">
@@ -595,33 +594,43 @@ HTML_TEMPLATE = '''
         function switchTab(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            
+
             document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
+            
+            // Find the button that corresponds to this tab and make it active
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => {
+                if (btn.getAttribute('onclick').includes("'" + tabId + "'")) {
+                    btn.classList.add('active');
+                }
+            });
         }
 
         async function runTask(taskType) {
-            const serversInput = document.getElementById(`${taskType}-servers`);
-            const servers = serversInput.value.trim().split('\n').filter(s => s.trim());
-            
+            const serversInput = document.getElementById(taskType + '-servers');
+            const servers = serversInput.value.trim().split('\\n').filter(function(s) { return s.trim(); });
+
             if (servers.length === 0) {
                 alert('Пожалуйста, введите список серверов');
                 return;
             }
 
-            const statusDiv = document.getElementById(`${taskType}-status`);
-            const logDiv = document.getElementById(`${taskType}-log`);
-            const resultsDiv = document.getElementById(`${taskType}-results`);
-            const exportBtn = document.getElementById(`export-${taskType}`);
-            const progressFill = document.getElementById(`${taskType}-progress`);
-            const statusText = document.getElementById(`${taskType}-status-text`);
+            const statusDiv = document.getElementById(taskType + '-status');
+            const logDiv = document.getElementById(taskType + '-log');
+            const resultsDiv = document.getElementById(taskType + '-results');
+            const exportBtn = document.getElementById('export-' + taskType);
+            const progressFill = document.getElementById(taskType + '-progress');
+            const statusText = document.getElementById(taskType + '-status-text');
 
             statusDiv.classList.remove('hidden');
             logDiv.classList.remove('hidden');
             resultsDiv.innerHTML = '';
+            resultsDiv.classList.add('hidden');
             exportBtn.classList.add('hidden');
             progressFill.style.width = '0%';
             statusText.textContent = 'Подготовка...';
+            statusText.style.color = '#1e293b';
+            logDiv.textContent = 'Запуск задачи...\\n';
 
             try {
                 const response = await fetch('/api/run', {
@@ -630,10 +639,12 @@ HTML_TEMPLATE = '''
                     body: JSON.stringify({ task: taskType, servers: servers })
                 });
 
-                if (!response.ok) throw new Error('Ошибка сети');
+                if (!response.ok) {
+                    throw new Error('Ошибка сети: ' + response.status);
+                }
 
                 const data = await response.json();
-                
+
                 if (data.status === 'started') {
                     pollStatus(taskType);
                 } else {
@@ -642,27 +653,27 @@ HTML_TEMPLATE = '''
             } catch (error) {
                 statusText.textContent = 'Ошибка!';
                 statusText.style.color = '#ef4444';
-                logDiv.innerHTML += '\\n❌ Ошибка: ' + error.message + '\\n';
+                logDiv.textContent += '\\nОшибка: ' + error.message + '\\n';
                 logDiv.scrollTop = logDiv.scrollHeight;
             }
         }
 
         async function pollStatus(taskType) {
-            const statusDiv = document.getElementById(`${taskType}-status`);
-            const logDiv = document.getElementById(`${taskType}-log`);
-            const resultsDiv = document.getElementById(`${taskType}-results`);
-            const exportBtn = document.getElementById(`export-${taskType}`);
-            const progressFill = document.getElementById(`${taskType}-progress`);
-            const statusText = document.getElementById(`${taskType}-status-text`);
+            const statusDiv = document.getElementById(taskType + '-status');
+            const logDiv = document.getElementById(taskType + '-log');
+            const resultsDiv = document.getElementById(taskType + '-results');
+            const exportBtn = document.getElementById('export-' + taskType);
+            const progressFill = document.getElementById(taskType + '-progress');
+            const statusText = document.getElementById(taskType + '-status-text');
 
             const interval = setInterval(async () => {
                 try {
-                    const response = await fetch(`/api/status/${taskType}`);
+                    const response = await fetch('/api/status/' + taskType);
                     const data = await response.json();
 
                     if (data.status === 'running') {
-                        statusText.textContent = `Выполнение: ${data.completed}/${data.total}`;
-                        progressFill.style.width = `${(data.completed / data.total) * 100}%`;
+                        statusText.textContent = 'Выполнение: ' + data.completed + '/' + data.total;
+                        progressFill.style.width = ((data.completed / data.total) * 100) + '%';
                         logDiv.textContent = data.log.join('\\n');
                         logDiv.scrollTop = logDiv.scrollHeight;
                     } else if (data.status === 'completed') {
@@ -671,7 +682,7 @@ HTML_TEMPLATE = '''
                         statusText.style.color = '#10b981';
                         progressFill.style.width = '100%';
                         logDiv.textContent = data.log.join('\\n');
-                        
+
                         if (data.results && data.results.length > 0) {
                             currentResults[taskType] = data.results;
                             displayResults(taskType, data.results);
@@ -686,39 +697,43 @@ HTML_TEMPLATE = '''
                 } catch (error) {
                     clearInterval(interval);
                     statusText.textContent = 'Ошибка опроса';
-                    logDiv.textContent += '\\n❌ Ошибка опроса: ' + error.message;
+                    logDiv.textContent += '\\nОшибка опроса: ' + error.message;
                 }
             }, 1000);
         }
 
         function displayResults(taskType, results) {
-            const resultsDiv = document.getElementById(`${taskType}-results`);
+            const resultsDiv = document.getElementById(taskType + '-results');
             resultsDiv.classList.remove('hidden');
-            
+
             let html = '<table><thead><tr>';
-            
+
             if (results.length > 0) {
-                Object.keys(results[0]).forEach(key => {
+                Object.keys(results[0]).forEach(function(key) {
                     html += '<th>' + key + '</th>';
                 });
             }
-            
+
             html += '</tr></thead><tbody>';
-            
-            results.forEach(row => {
+
+            results.forEach(function(row) {
                 html += '<tr>';
-                Object.values(row).forEach(value => {
+                Object.values(row).forEach(function(value) {
                     let className = '';
                     if (typeof value === 'string') {
-                        if (value.toLowerCase().includes('ok') || value.toLowerCase().includes('true')) className = 'status-ok';
-                        else if (value.toLowerCase().includes('error') || value.toLowerCase().includes('false')) className = 'status-error';
-                        else if (value.toLowerCase().includes('warn')) className = 'status-warning';
+                        if (value.toLowerCase().includes('ok') || value.toLowerCase().includes('true') || value.toLowerCase().includes('yes') || value.toLowerCase().includes('synced') || value.toLowerCase().includes('enabled') || value.toLowerCase().includes('healthy')) {
+                            className = 'status-ok';
+                        } else if (value.toLowerCase().includes('error') || value.toLowerCase().includes('false') || value.toLowerCase().includes('no') || value.toLowerCase().includes('not synced') || value.toLowerCase().includes('disabled') || value.toLowerCase().includes('failed')) {
+                            className = 'status-error';
+                        } else if (value.toLowerCase().includes('warn')) {
+                            className = 'status-warning';
+                        }
                     }
                     html += '<td class="' + className + '">' + value + '</td>';
                 });
                 html += '</tr>';
             });
-            
+
             html += '</tbody></table>';
             resultsDiv.innerHTML = html;
         }
@@ -729,56 +744,33 @@ HTML_TEMPLATE = '''
                 return;
             }
 
-            fetch(`/api/export/${taskType}`, {
+            fetch('/api/export/' + taskType, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ data: currentResults[taskType] })
             })
-            .then(response => response.blob())
-            .then(blob => {
+            .then(function(response) { 
+                return response.blob(); 
+            })
+            .then(function(blob) {
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `${taskType}_report_${new Date().toISOString().slice(0,10)}.xlsx`;
+                a.download = taskType + '_report_' + new Date().toISOString().slice(0,10) + '.xlsx';
                 document.body.appendChild(a);
                 a.click();
                 document.body.removeChild(a);
                 window.URL.revokeObjectURL(url);
             })
-            .catch(error => alert('Ошибка экспорта: ' + error.message));
+            .catch(function(error) { 
+                alert('Ошибка экспорта: ' + error.message); 
+            });
         }
     </script>
 </body>
-</html>
-'''
+</html>'''
 
 # --- ЛОГИКА ЗАДАЧ ---
-
-def get_servers_info(servers, check_type='ping'):
-    """Базовая функция проверки доступности серверов"""
-    results = []
-    for server in servers:
-        try:
-            if check_type == 'ping':
-                # Имитация пинга (в реальности можно использовать subprocess)
-                socket.setdefaulttimeout(2)
-                socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((server, 22))
-                status = "OK"
-            else:
-                status = "Unknown"
-            
-            results.append({
-                "Server": server,
-                "Status": status,
-                "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            })
-        except Exception as e:
-            results.append({
-                "Server": server,
-                "Status": f"Error: {str(e)}",
-                "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            })
-    return results
 
 def check_ntp(servers):
     """Проверка NTP синхронизации"""
@@ -788,7 +780,7 @@ def check_ntp(servers):
         results.append({
             "Server": server,
             "NTP Status": "Synced" if hash(server) % 2 == 0 else "Not Synced",
-            "Offset": f"{hash(server) % 100}ms",
+            "Offset": f"{abs(hash(server) % 100)}ms",
             "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         })
     return results
@@ -834,7 +826,7 @@ def check_archive(servers):
     """Проверка глубины архива"""
     results = []
     for server in servers:
-        depth = hash(server) % 365
+        depth = abs(hash(server) % 365)
         results.append({
             "Server": server,
             "Archive Depth": f"{depth} days",
@@ -848,7 +840,7 @@ def get_users(servers):
     results = []
     users_list = ["admin", "operator", "viewer", "manager"]
     for server in servers:
-        user = users_list[hash(server) % len(users_list)]
+        user = users_list[abs(hash(server)) % len(users_list)]
         results.append({
             "Server": server,
             "User": user,
@@ -861,7 +853,7 @@ def check_rights(servers, ethalon=None):
     """Проверка прав доступа"""
     results = []
     for server in servers:
-        match = hash(server) % 2 == 0
+        match = abs(hash(server)) % 2 == 0
         results.append({
             "Server": server,
             "Match Ethalon": "Yes" if match else "No",
@@ -874,12 +866,12 @@ def check_db(servers):
     """Проверка состояния БД"""
     results = []
     for server in servers:
-        size = hash(server) % 100
+        size = abs(hash(server) % 100)
         results.append({
             "Server": server,
             "DB Size": f"{size} GB",
             "Status": "Healthy" if size < 80 else "Warning",
-            "Connections": hash(server) % 50,
+            "Connections": abs(hash(server) % 50),
             "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         })
     return results
@@ -888,11 +880,11 @@ def check_pos(servers):
     """Проверка POS терминалов"""
     results = []
     for server in servers:
-        count = hash(server) % 10
+        count = abs(hash(server) % 10)
         results.append({
             "Server": server,
             "POS Count": count,
-            "Active": count - (hash(server) % 3),
+            "Active": max(0, count - (abs(hash(server)) % 3)),
             "Status": "OK" if count > 0 else "No POS",
             "Timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         })
@@ -930,44 +922,48 @@ def run_task_thread(task_type, servers, task_id):
             'log': [f"Started task {task_type} for {len(servers)} servers"],
             'results': []
         }
-    
+
     try:
         results = []
-        
+
         if task_type == 'ntp':
-            func = lambda s: check_ntp(s)
+            results = check_ntp(servers)
         elif task_type == 'web':
-            func = lambda s: manage_web(s, 'check')
+            action = 'check'  # Можно получить из запроса
+            results = manage_web(servers, action)
         elif task_type == 'cloud':
-            func = lambda s: manage_cloud(s, 'check')
+            action = 'check'  # Можно получить из запроса
+            results = manage_cloud(servers, action)
         elif task_type == 'versions':
-            func = lambda s: check_versions(s)
+            results = check_versions(servers)
         elif task_type == 'archive':
-            func = lambda s: check_archive(s)
+            results = check_archive(servers)
         elif task_type == 'users':
-            func = lambda s: get_users(s)
+            results = get_users(servers)
         elif task_type == 'rights':
-            func = lambda s: check_rights(s, None)
+            results = check_rights(servers, None)
         elif task_type == 'db':
-            func = lambda s: check_db(s)
+            results = check_db(servers)
         elif task_type == 'pos':
-            func = lambda s: check_pos(s)
+            results = check_pos(servers)
         elif task_type == 'ip':
-            func = lambda s: check_ip(s)
+            results = check_ip(servers)
         else:
             raise ValueError(f"Unknown task type: {task_type}")
-        
-        # Для простоты выполняем всю задачу сразу, но эмулируем прогресс
-        time.sleep(0.5)
-        results = func(servers)
-        
+
+        # Эмулируем прогресс
+        for i in range(len(servers)):
+            time.sleep(0.1)  # Имитация работы
+            with task_lock:
+                tasks[task_id]['completed'] = i + 1
+                tasks[task_id]['progress'] = int(((i + 1) / len(servers)) * 100)
+                tasks[task_id]['log'].append(f"Processed: {servers[i]}")
+
         with task_lock:
             tasks[task_id]['results'] = results
-            tasks[task_id]['completed'] = len(servers)
-            tasks[task_id]['progress'] = 100
             tasks[task_id]['log'].append(f"Completed: {len(results)} results")
             tasks[task_id]['status'] = 'completed'
-            
+
     except Exception as e:
         with task_lock:
             tasks[task_id]['status'] = 'error'
@@ -984,17 +980,17 @@ def api_run():
     data = request.json
     task_type = data.get('task')
     servers = data.get('servers', [])
-    
+
     if not task_type or not servers:
         return jsonify({'status': 'error', 'message': 'Missing task or servers'}), 400
-    
+
     task_id = task_type  # Используем тип задачи как ID для простоты
-    
+
     # Запускаем задачу в фоне
     thread = threading.Thread(target=run_task_thread, args=(task_type, servers, task_id))
     thread.daemon = True
     thread.start()
-    
+
     return jsonify({'status': 'started', 'task_id': task_id})
 
 @app.route('/api/status/<task_id>')
@@ -1002,7 +998,7 @@ def api_status(task_id):
     with task_lock:
         if task_id not in tasks:
             return jsonify({'status': 'not_found'})
-        
+
         task = tasks[task_id]
         return jsonify({
             'status': task['status'],
@@ -1017,34 +1013,33 @@ def api_status(task_id):
 def api_export(task_type):
     data = request.json
     results = data.get('data', [])
-    
+
     if not results:
         return jsonify({'error': 'No data to export'}), 400
-    
+
     # Создаем Excel файл
     wb = openpyxl.Workbook()
     ws = wb.active
     ws.title = f"{task_type}_report"
-    
+
     # Заголовки
     if results:
         headers = list(results[0].keys())
         for col, header in enumerate(headers, 1):
             cell = ws.cell(row=1, column=col, value=header)
-            cell.font = Font(bold=True)
-            cell.fill = PatternFill(start_color="4F46E5", end_color="4F46E5", fill_type="solid")
             cell.font = Font(bold=True, color="FFFFFF")
-        
+            cell.fill = PatternFill(start_color="4F46E5", end_color="4F46E5", fill_type="solid")
+
         # Данные
         for row_idx, row_data in enumerate(results, 2):
             for col_idx, header in enumerate(headers, 1):
                 ws.cell(row=row_idx, column=col_idx, value=row_data.get(header))
-    
+
     # Сохраняем в буфер
     buffer = BytesIO()
     wb.save(buffer)
     buffer.seek(0)
-    
+
     return send_file(
         buffer,
         mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
@@ -1053,12 +1048,12 @@ def api_export(task_type):
     )
 
 if __name__ == '__main__':
-    print(f"🚀 BK Server Manager запускается на http://{HOST}:{PORT}")
-    print(f"📋 Доступные вкладки: NTP, Web, Cloud, Versions, Archive, Users, Rights, DB, POS, IP")
-    print(f"💾 Экспорт в Excel доступен для всех отчетов")
-    print(f"⚠️  Нажмите Ctrl+C для остановки")
-    
+    print(f"BK Server Manager запускается на http://{HOST}:{PORT}")
+    print(f"Доступные вкладки: NTP, Web, Cloud, Versions, Archive, Users, Rights, DB, POS, IP")
+    print(f"Экспорт в Excel доступен для всех отчетов")
+    print(f"Нажмите Ctrl+C для остановки")
+
     try:
         app.run(host=HOST, port=PORT, debug=DEBUG, threaded=True)
     except KeyboardInterrupt:
-        print("\n🛑 Сервер остановлен пользователем")
+        print("\nСервер остановлен пользователем")
