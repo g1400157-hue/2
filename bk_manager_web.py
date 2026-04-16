@@ -854,7 +854,7 @@ HTML_TEMPLATE = """
                     break;
             }
 
-            const servers = serversText.split('\\n').filter(s => s.trim());
+            const servers = serversText.split('\n').filter(s => s.trim());
             
             try {
                 const response = await fetch('/api/run_task', {
